@@ -1,0 +1,475 @@
+<title>ערבית מאפס</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&family=Rubik:wght@400;500;700&family=Secular+One&display=swap">
+<style>
+/* Layout: a friendly study notebook — sticky topic chips, then five numbered sections matching the teacher's topic list */
+:root{
+  --bg:#F3F7F6; --surface:#FFFFFF; --ink:#14313A; --muted:#55707A; --line:#D3E2DF;
+  --teal:#0E7673; --teal-soft:#DFF0EE; --sun:#E89A1C; --sun-soft:#FCEFD6; --rose:#D04560; --rose-soft:#FBE3E8;
+  --plum:#6B4FA0; --plum-soft:#ECE6F6;
+  --f-display:"Secular One","Rubik",system-ui,sans-serif;
+  --f-body:"Rubik",system-ui,"Segoe UI",Arial,sans-serif;
+  --f-ar:"Noto Naskh Arabic","Geeza Pro","Traditional Arabic","Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0D1C21; --surface:#14282E; --ink:#E5F0EE; --muted:#93AEB4; --line:#24414A;
+  --teal:#43C3B8; --teal-soft:#123836; --sun:#F4B74E; --sun-soft:#3A2D14; --rose:#F07890; --rose-soft:#3D1D25;
+  --plum:#B49CE6; --plum-soft:#2A2340; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D1C21; --surface:#14282E; --ink:#E5F0EE; --muted:#93AEB4; --line:#24414A;
+  --teal:#43C3B8; --teal-soft:#123836; --sun:#F4B74E; --sun-soft:#3A2D14; --rose:#F07890; --rose-soft:#3D1D25;
+  --plum:#B49CE6; --plum-soft:#2A2340; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.65;direction:rtl}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ar{font-family:var(--f-ar);direction:rtl;unicode-bidi:isolate;line-height:1.9}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;line-height:1.2;text-wrap:balance;margin:0}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px;border-radius:8px}
+
+/* hero */
+.hero{padding-block:36px 24px;display:grid;grid-template-columns:1fr auto;gap:16px 28px;align-items:end}
+.hero h1{font-size:clamp(40px,8vw,68px);color:var(--ink)}
+.hero .sub{color:var(--muted);font-size:18px;margin-top:8px;max-width:34em}
+.hero .big{font-size:clamp(64px,13vw,118px);color:var(--teal);line-height:1.1}
+.hero .big small{display:block;font-family:var(--f-body);font-size:14px;color:var(--muted);text-align:center;line-height:1.3}
+.exam{display:inline-flex;gap:8px;align-items:center;background:var(--sun-soft);color:var(--ink);border-radius:999px;padding:6px 14px;font-weight:500;margin-top:14px;font-size:15px}
+.exam b{color:var(--sun);font-weight:700}
+@media (max-width:620px){.hero{grid-template-columns:1fr}.hero .big{order:-1;text-align:right}}
+
+/* chips nav */
+nav.topics{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.topics .row{display:flex;gap:8px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+nav.topics a{flex:none;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);padding:6px 14px;border-radius:999px;font-size:15px;white-space:nowrap}
+nav.topics a span{color:var(--teal);font-weight:700;margin-left:4px}
+
+section{padding-block:40px 8px;scroll-margin-top:64px}
+.sec-head{display:flex;gap:14px;align-items:center;margin-bottom:10px}
+.num{flex:none;width:46px;height:46px;border-radius:14px;background:var(--teal);color:var(--surface);display:grid;place-items:center;font-family:var(--f-display);font-size:24px}
+.sec-head h2{font-size:clamp(26px,4.4vw,36px)}
+.lead{color:var(--muted);max-width:40em;margin-bottom:18px}
+.done{margin-top:18px;display:inline-flex;gap:8px;align-items:center;cursor:pointer;color:var(--muted);font-size:15px}
+.done input{width:20px;height:20px;accent-color:var(--teal)}
+
+/* callouts */
+.note{background:var(--teal-soft);border-radius:16px;padding:14px 18px;margin-block:14px}
+.note.sun{background:var(--sun-soft)}
+.note.rose{background:var(--rose-soft)}
+.note.plum{background:var(--plum-soft)}
+.note b{font-weight:700}
+.kicker{font-size:13px;letter-spacing:.06em;color:var(--muted);font-weight:500}
+
+/* intro facts */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.fact h3{font-size:19px;margin-bottom:4px}
+.fact p{font-size:15.5px;color:var(--muted)}
+.cousins{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:12px}
+.cousin{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px 12px;text-align:center}
+.cousin .ar{font-size:30px;color:var(--teal)}
+.cousin div:last-child{font-size:15px}
+
+/* letters */
+.fam{margin-block:16px}
+.fam-label{font-size:14px;color:var(--muted);margin-bottom:6px}
+.letters{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.lt{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:10px 12px 12px;text-align:center;position:relative;cursor:pointer;transition:transform .15s}
+.lt:hover{transform:translateY(-2px)}
+.lt.nc{border:2px dashed var(--rose)}
+.lt .glyph{font-size:58px;line-height:1.35;color:var(--ink)}
+.lt .name{font-weight:700;font-size:16px}
+.lt .snd{display:inline-block;background:var(--teal-soft);color:var(--teal);border-radius:8px;padding:0 8px;font-weight:700;margin-top:2px}
+.lt .tip{font-size:13.5px;color:var(--muted);line-height:1.4;margin-top:4px}
+.forms{display:flex;justify-content:space-between;gap:4px;margin-top:8px;border-top:1px solid var(--line);padding-top:6px}
+.forms div{flex:1;font-size:11.5px;color:var(--muted)}
+.forms .ar{display:block;font-size:26px;color:var(--teal);line-height:1.5}
+.say{position:absolute;top:8px;left:8px;width:30px;height:30px;border-radius:50%;border:none;background:var(--teal-soft);color:var(--teal);display:grid;place-items:center;cursor:pointer}
+.say svg{width:16px;height:16px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:14.5px;color:var(--muted);margin-block:8px}
+.legend i{display:inline-block;width:18px;height:14px;border:2px dashed var(--rose);border-radius:4px;vertical-align:-2px;margin-left:6px}
+
+.connect{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 18px;margin-top:14px}
+.connect .ar{font-size:34px}
+.connect .arrow{color:var(--muted);font-size:22px}
+.connect .res{color:var(--teal);font-size:44px}
+
+/* vowels */
+.vowels{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.vw{background:var(--surface);border-radius:18px;padding:14px 16px;border:1px solid var(--line);border-top:6px solid var(--c)}
+.vw .top{display:flex;justify-content:space-between;align-items:baseline}
+.vw h3{font-size:22px;color:var(--c)}
+.vw .sound{font-size:26px;font-weight:700;font-family:var(--f-display);color:var(--c)}
+.vw .ex{font-size:64px;line-height:1.5;text-align:center;color:var(--ink)}
+.vw p{font-size:15px;color:var(--muted)}
+.vw .heb{font-size:22px;text-align:center;color:var(--ink)}
+.vw.fat{--c:var(--teal)} .vw.kas{--c:var(--rose)} .vw.dam{--c:var(--sun)} .vw.suk{--c:var(--plum)}
+
+.lab{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px 18px;margin-top:16px}
+.lab h3{font-size:21px;margin-bottom:8px}
+.pick{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.pick button{font-family:var(--f-ar);font-size:26px;width:52px;height:52px;border-radius:14px;border:1px solid var(--line);background:var(--bg);cursor:pointer;line-height:1}
+.pick button[aria-pressed="true"]{background:var(--teal);color:var(--surface);border-color:var(--teal)}
+.labout{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.labout button{border:none;border-radius:14px;padding:6px 4px 10px;cursor:pointer;background:var(--bg)}
+.labout .ar{font-size:50px;display:block;line-height:1.5}
+.labout button > span:last-child{font-size:20px;font-weight:700}
+.labout .en{font-size:16px}
+.whole .en{color:inherit;opacity:.85}
+.labout button:nth-child(1) > span:last-child{color:var(--teal)}
+.labout button:nth-child(2) > span:last-child{color:var(--rose)}
+.labout button:nth-child(3) > span:last-child{color:var(--sun)}
+.labout button:nth-child(4) > span:last-child{color:var(--plum)}
+
+.tbl-wrap{overflow-x:auto;margin-top:12px}
+table{border-collapse:collapse;width:100%;min-width:420px;background:var(--surface);border-radius:14px;overflow:hidden}
+th,td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:center}
+th{font-weight:500;color:var(--muted);font-size:14.5px;background:var(--bg)}
+td .ar{font-size:30px}
+
+.breakdown{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin-top:10px}
+.syl{background:var(--bg);border-radius:12px;padding:4px 12px;text-align:center;min-width:56px}
+.syl .ar{font-size:34px;display:block;line-height:1.6;color:var(--teal)}
+.syl > span:last-child{font-size:16px}
+.eq{align-self:center;font-size:22px;color:var(--muted)}
+.whole{background:var(--teal);color:var(--surface);border-radius:12px;padding:4px 14px;text-align:center}
+.whole .ar{font-size:34px;display:block;line-height:1.6}
+
+/* ta marbuta + possessive */
+.pair{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px 18px;margin-top:10px}
+.pair .w{text-align:center}
+.pair .w .ar{font-size:40px;display:block;line-height:1.5}
+.pair .w > span:last-child{font-size:15px;color:var(--muted)}
+.pr{display:block;font-size:15.5px;font-weight:500;color:var(--teal);line-height:1.4}
+.pr i,.pri i,.en{font-style:normal;direction:ltr;unicode-bidi:isolate;color:var(--muted);font-family:var(--f-body);font-weight:400}
+.pri{font-size:15px;color:var(--teal);font-weight:500;white-space:nowrap}
+.formula-pr{text-align:center;font-size:16px;color:var(--teal);font-weight:500;margin-top:-4px;margin-bottom:6px}
+.pair .arrow{font-size:24px;color:var(--muted)}
+.hl{color:var(--rose)}
+.hl2{color:var(--teal)}
+.types{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.type{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px 18px}
+.type h3{font-size:22px}
+.type .rule{font-size:16px;margin-block:6px 6px}
+.type .formula{font-size:30px;text-align:center;background:var(--bg);border-radius:12px;padding:4px 8px;margin-block:8px}
+.type .pair{border:none;background:var(--bg);padding:6px 12px;margin-top:8px}
+.type .pair .w .ar{font-size:32px}
+
+/* vocab */
+.vbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:6px}
+.btn{border:1px solid var(--teal);background:var(--teal);color:var(--surface);border-radius:999px;padding:7px 16px;cursor:pointer;font-weight:500;font-size:15px}
+.btn.ghost{background:transparent;color:var(--teal)}
+.vgroup{margin-top:18px}
+.vgroup h3{font-size:20px;margin-bottom:8px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:10px}
+.card{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:8px 8px 10px;text-align:center;cursor:pointer;min-height:122px;display:flex;flex-direction:column;justify-content:center;gap:2px;position:relative}
+.card .ar{font-size:32px;line-height:1.6;color:var(--ink)}
+.card .tr{font-size:14px;color:var(--muted)}
+.card .he{font-weight:700;color:var(--teal);font-size:17px;visibility:hidden}
+.card.open .he{visibility:visible}
+.card.open{border-color:var(--teal);background:var(--teal-soft)}
+.card .hint{font-size:12px;color:var(--muted)}
+.card.open .hint{display:none}
+
+.checklist{display:grid;gap:8px;margin-top:10px;padding:0;list-style:none}
+.checklist li{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+footer{padding-block:40px 60px;color:var(--muted);font-size:15px;text-align:center}
+.toast{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:12px;font-size:15px;z-index:20}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="wrap hero">
+  <div>
+    <div class="kicker">דף הסברים · שכבת ח׳</div>
+    <h1>ערבית מאפס</h1>
+    <p class="sub">כל מה שצריך לבוחן, צעד אחרי צעד. אפשר ללחוץ כמעט על הכול: אותיות, ניקוד וכרטיסיות מילים.</p>
+    <div class="exam">הבוחן: <b>יום חמישי, 12.11</b></div>
+  </div>
+  <div class="big ar">اَلْعَرَبِيَّة<small>"הערבית"</small></div>
+</header>
+
+<nav class="topics" aria-label="נושאים">
+  <div class="wrap row">
+    <a href="#start"><span>0</span>לפני שמתחילים</a>
+    <a href="#letters"><span>1</span>האותיות</a>
+    <a href="#vowels"><span>2</span>ניקוד</a>
+    <a href="#mine"><span>3</span>"שלי"</a>
+    <a href="#marbuta"><span>4</span>תא מרבוטה</a>
+    <a href="#vocab"><span>5</span>אוצר מילים</a>
+    <a href="#exam"><span>✓</span>טיפים לבוחן</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section id="start">
+  <div class="sec-head"><div class="num">0</div><h2>לפני שמתחילים: יש לך יתרון</h2></div>
+  <p class="lead">ערבית ועברית הן "בנות דודות". אם אתה יודע עברית, כבר יש לך חצי מהעבודה.</p>
+  <div class="facts">
+    <div class="fact"><h3>קוראים מימין לשמאל</h3><p>בדיוק כמו בעברית.</p></div>
+    <div class="fact"><h3>28 אותיות</h3><p>רובן מקבילות לאותיות בעברית. יש כמה צלילים חדשים.</p></div>
+    <div class="fact"><h3>האותיות מתחברות</h3><p>כותבים "בכתב מחובר". לכן לאות יש צורה קצת שונה בהתחלה, באמצע ובסוף.</p></div>
+    <div class="fact"><h3>יש ניקוד</h3><p>סימנים קטנים מעל ומתחת לאות שאומרים איך להגות. כמו ניקוד בעברית.</p></div>
+  </div>
+  <div class="note sun" style="margin-top:16px"><b>תסתכל כמה זה דומה:</b>
+    <div class="cousins">
+      <div class="cousin"><div class="ar">يَوْم</div><div>יַוְם = יוֹם</div></div>
+      <div class="cousin"><div class="ar">كَبِير</div><div>כַּבִּיר = כַּבִּיר (גדול)</div></div>
+      <div class="cousin"><div class="ar">مَدْرَسَة</div><div>מַדְרַסַה = מִדְרָשָׁה</div></div>
+      <div class="cousin"><div class="ar">أَنَا</div><div>אַנַא = אֲנִי</div></div>
+      <div class="cousin"><div class="ar">اِسْمِي</div><div>אִסְמִי = שְׁמִי</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="letters">
+  <div class="sec-head"><div class="num">1</div><h2>האותיות</h2></div>
+  <p class="lead">הסוד: הרבה אותיות הן <b>אותה צורה בדיוק</b>, ורק הנקודות שונות. אז לומדים "משפחות". לחיצה על אות משמיעה את השם שלה (אם יש במכשיר קול בערבית).</p>
+  <div class="legend">
+    <span><i></i>אותיות "עקשניות": לא מתחברות לאות שאחריהן (משמאל). יש רק 6: ا د ذ ر ز و</span>
+  </div>
+  <div id="letterFams"></div>
+
+  <div class="note">
+    <b>איך מחברים?</b> כותבים כל אות בצורה המתאימה למקום שלה ומחברים בקו. האות الف (ا) לא מתחברת שמאלה, לכן אחריה האות מתחילה מחדש.
+  </div>
+  <div class="connect" aria-label="דוגמה לחיבור">
+    <span class="ar">ي</span><span class="arrow">+</span><span class="ar">و</span><span class="arrow">+</span><span class="ar">س</span><span class="arrow">+</span><span class="ar">ف</span><span class="arrow">=</span><span class="ar res">يوسف</span>
+    <span style="color:var(--muted);font-size:15px">יוּסֻף. שים לב: ה-و לא מתחברת שמאלה, לכן יש רווח קטן אחריה.</span>
+  </div>
+  <div class="note plum">
+    <b>מה זה הסימן הקטן על האלף?</b> לפעמים תראה <span class="ar" style="font-size:24px">أ</span> או <span class="ar" style="font-size:24px">إ</span>. הסימן הקטן (ء) נקרא <b>הַמְזָה</b>, והוא פשוט אומר "כאן יש א׳ שהוגים". למשל <span class="ar" style="font-size:24px">أَنَا</span> (אַנַא), <span class="ar" style="font-size:24px">إِلَى</span> (אִלַא).
+  </div>
+  <label class="done"><input type="checkbox" data-done="letters">הבנתי את האותיות</label>
+</section>
+
+<section id="vowels">
+  <div class="sec-head"><div class="num">2</div><h2>ניקוד: ארבעה סימנים קטנים</h2></div>
+  <p class="lead">בערבית יש רק ארבעה סימני ניקוד שצריך לבוחן. כל אחד מהם מקביל לניקוד שאתה כבר מכיר מעברית.</p>
+  <div class="vowels">
+    <div class="vw fat"><div class="top"><h3>פַתְחַה</h3><span class="sound">a</span></div>
+      <div class="ex ar">بَ</div><div class="heb">בַּ <i class="en">ba</i></div>
+      <p>קו קטן <b>מעל</b> האות. כמו פתח.</p></div>
+    <div class="vw kas"><div class="top"><h3>כַּסְרַה</h3><span class="sound">i</span></div>
+      <div class="ex ar">بِ</div><div class="heb">בִּ <i class="en">bi</i></div>
+      <p>קו קטן <b>מתחת</b> לאות. כמו חיריק.</p></div>
+    <div class="vw dam"><div class="top"><h3>צַ׳מַּה</h3><span class="sound">u</span></div>
+      <div class="ex ar">بُ</div><div class="heb">בֻּ <i class="en">bu</i></div>
+      <p>ו׳ קטנטנה <b>מעל</b> האות. כמו קובוץ.</p></div>
+    <div class="vw suk"><div class="top"><h3>סֻכּוּן</h3><span class="sound">—</span></div>
+      <div class="ex ar">بْ</div><div class="heb">בְּ <i class="en">b</i></div>
+      <p>עיגול קטן <b>מעל</b> האות. <b>אין תנועה</b>, כמו שווא נח.</p></div>
+  </div>
+  <div class="note sun"><b>טריק לזכור:</b> פַתְחַה = פותחים את הפה (a). כַּסְרַה = למטה (i). צַ׳מַּה = שפתיים עגולות כמו ו׳ (u). סֻכּוּן = שקט, עיגול ריק.</div>
+
+  <div class="lab">
+    <h3>מעבדת ניקוד: בחר אות ושמע</h3>
+    <div class="pick" id="labPick"></div>
+    <div class="labout" id="labOut"></div>
+  </div>
+
+  <h3 style="font-size:22px;margin-top:26px">תנועות ארוכות</h3>
+  <p class="lead" style="margin-bottom:0">כשאחרי הניקוד באה אחת מהאותיות ا و ي, הצליל נמשך ונהיה ארוך.</p>
+  <div class="tbl-wrap"><table>
+    <tr><th>ניקוד + אות</th><th>צליל</th><th>דוגמה מהבוחן</th><th>קוראים</th></tr>
+    <tr><td>פַתְחַה + ا</td><td><b>aa</b></td><td><span class="ar">يَافَا</span></td><td>יַאפַא <i class="en">yaafaa</i> (יפו)</td></tr>
+    <tr><td>כַּסְרַה + ي</td><td><b>ii</b></td><td><span class="ar">كَبِير</span></td><td>כַּבִּיר <i class="en">kabiir</i> (גדול)</td></tr>
+    <tr><td>צַ׳מַּה + و</td><td><b>uu</b></td><td><span class="ar">يُوسُف</span></td><td>יוּסֻף <i class="en">yuusuf</i> (יוסף)</td></tr>
+  </table></div>
+
+  <div class="note plum"><b>בונוס – שַׁדַּה (ـّ):</b> סימן שנראה כמו w קטנה. הוא אומר שהאות <b>כפולה</b>, כמו דגש חזק. למשל <span class="ar" style="font-size:26px">أُمِّي</span> = אֻמְ־מִי <i class="en">um-mi</i>, <span class="ar" style="font-size:26px">دُكَّان</span> = דֻכְּ־כַּאן <i class="en">duk-kaan</i>.</div>
+
+  <h3 style="font-size:22px;margin-top:26px">בוא נקרא מילה, הברה אחרי הברה</h3>
+  <div id="breakdowns"></div>
+  <label class="done"><input type="checkbox" data-done="vowels">הבנתי את הניקוד</label>
+</section>
+
+<section id="mine">
+  <div class="sec-head"><div class="num">3</div><h2>"שלי": כינוי השייכות בשני הסוגים</h2></div>
+  <p class="lead">בעברית אומרים "הספר שלי" או "סִפְרִי". בערבית מוסיפים בסוף המילה את <b>ـِي</b> (צליל "אִי"). יש שני סוגים של מילים, ולכל סוג חוק משלו.</p>
+  <div class="types">
+    <div class="type">
+      <div class="kicker">סוג 1</div>
+      <h3>מילה רגילה</h3>
+      <p class="rule">פשוט מוסיפים <b class="hl2">ـِي</b> בסוף.</p>
+      <div class="formula ar">اِسْم + <span class="hl2">ـِي</span> = اِسْمِي</div><div class="formula-pr">אִסְם + אִי = אִסְמִי · <i>ism + i = ismi</i></div>
+      <div class="pair"><div class="w"><span class="ar">اِسْم</span><span class="pr">אִסְם <i>ism</i></span><span>שם</span></div><span class="arrow">←</span><div class="w"><span class="ar">اِسْمِ<span class="hl2">ي</span></span><span class="pr">אִסְמִי <i>ismi</i></span><span>שמי / השם שלי</span></div></div>
+      <div class="pair"><div class="w"><span class="ar">دُكَّان</span><span class="pr">דֻכַּאן <i>dukkaan</i></span><span>חנות</span></div><span class="arrow">←</span><div class="w"><span class="ar">دُكَّانِ<span class="hl2">ي</span></span><span class="pr">דֻכַּאנִי <i>dukkaani</i></span><span>החנות שלי</span></div></div>
+      <div class="pair"><div class="w"><span class="ar">أَب</span><span class="pr">אַבּ <i>ab</i></span><span>אבא</span></div><span class="arrow">←</span><div class="w"><span class="ar">أَبِ<span class="hl2">ي</span></span><span class="pr">אַבִּי <i>abi</i></span><span>אבא שלי</span></div></div>
+      <div class="pair"><div class="w"><span class="ar">أُمّ</span><span class="pr">אֻם <i>umm</i></span><span>אמא</span></div><span class="arrow">←</span><div class="w"><span class="ar">أُمِّ<span class="hl2">ي</span></span><span class="pr">אֻמִּי <i>ummi</i></span><span>אמא שלי</span></div></div>
+    </div>
+    <div class="type">
+      <div class="kicker">סוג 2</div>
+      <h3>מילה שנגמרת ב־ة</h3>
+      <p class="rule">ה־<b class="hl">ة</b> הופכת ל־<b class="hl">ت</b>, ואז מוסיפים <b class="hl2">ـِي</b>.</p>
+      <div class="formula ar">مَدْرَسَ<span class="hl">ة</span> ← مَدْرَسَ<span class="hl">ت</span>ِ<span class="hl2">ي</span></div><div class="formula-pr">מַדְרַסַה ← מַדְרַסַתִי · <i>madrasa → madrasati</i></div>
+      <div class="pair"><div class="w"><span class="ar">مَدْرَسَة</span><span class="pr">מַדְרַסַה <i>madrasa</i></span><span>בית ספר</span></div><span class="arrow">←</span><div class="w"><span class="ar">مَدْرَسَ<span class="hl">ت</span>ِ<span class="hl2">ي</span></span><span class="pr">מַדְרַסַתִי <i>madrasati</i></span><span>בית הספר שלי</span></div></div>
+      <div class="pair"><div class="w"><span class="ar">دَوْلَة</span><span class="pr">דַוְלַה <i>dawla</i></span><span>מדינה</span></div><span class="arrow">←</span><div class="w"><span class="ar">دَوْلَ<span class="hl">ت</span>ِ<span class="hl2">ي</span></span><span class="pr">דַוְלַתִי <i>dawlati</i></span><span>המדינה שלי</span></div></div>
+      <div class="pair"><div class="w"><span class="ar">تِلْمِيذَة</span><span class="pr">תִלְמִיד׳ַה <i>tilmiidha</i></span><span>תלמידה</span></div><span class="arrow">←</span><div class="w"><span class="ar">تِلْمِيذَ<span class="hl">ت</span>ِ<span class="hl2">ي</span></span><span class="pr">תִלְמִיד׳ַתִי <i>tilmiidhati</i></span><span>התלמידה שלי</span></div></div>
+    </div>
+  </div>
+  <div class="note sun"><b>אותו דבר כמו בעברית!</b> מְדִינָ<b>ה</b> ← מְדִינָ<b>ת</b>ִי. גם בעברית ה־ה׳ הופכת ל־ת׳. בערבית ה־ة הופכת ל־ت.</div>
+  <div class="note"><b>שים לב למילה <span class="ar" style="font-size:24px">لِي</span> <span class="pri">(לִי · <i>li</i>)</span>:</b> זו מילה נפרדת שפירושה "לִי" או "יש לי". למשל <span class="ar" style="font-size:24px">لِي دُكَّان كَبِير</span> <span class="pri">(לִי דֻכַּאן כַּבִּיר · <i>li dukkaan kabiir</i>)</span> = יש לי חנות גדולה.</div>
+  <label class="done"><input type="checkbox" data-done="mine">הבנתי את "שלי"</label>
+</section>
+
+<section id="marbuta">
+  <div class="sec-head"><div class="num">4</div><h2>תא מרבוטה: ة, סימן הנקבה</h2></div>
+  <p class="lead">האות <b>ة</b> מופיעה <b>רק בסוף מילה</b>, והוגים אותה "אַ". ברוב המקרים היא אומרת שהמילה <b>בלשון נקבה</b>. בדיוק כמו ה־ה׳ בסוף "תלמידה".</p>
+  <div class="pair" style="justify-content:center">
+    <div class="w"><span class="ar" style="font-size:64px">ة</span><span class="pr">אַ <i>a</i></span><span>לבד או אחרי אות לא מתחברת</span></div>
+    <div class="w"><span class="ar" style="font-size:64px">ـة</span><span class="pr">אַ <i>a</i></span><span>מחוברת לאות שלפניה</span></div>
+  </div>
+  <div class="note plum"><b>איך מזהים?</b> היא נראית כמו ה (ه) עם <b>שתי נקודות למעלה</b>, כמו ב־ت. ולא במקרה: כשמוסיפים לה סיומת היא הופכת ל־ت (ראית את זה בנושא 3).</div>
+
+  <h3 style="font-size:22px;margin-top:22px">זכר ← נקבה: מוסיפים ة</h3>
+  <div class="pair"><div class="w"><span class="ar">كَبِير</span><span class="pr">כַּבִּיר <i>kabiir</i></span><span>גדול</span></div><span class="arrow">←</span><div class="w"><span class="ar">كَبِيرَ<span class="hl">ة</span></span><span class="pr">כַּבִּירַה <i>kabiira</i></span><span>גדולה</span></div></div>
+  <div class="pair"><div class="w"><span class="ar">تِلْمِيذ</span><span class="pr">תִלְמִיד׳ <i>tilmiidh</i></span><span>תלמיד</span></div><span class="arrow">←</span><div class="w"><span class="ar">تِلْمِيذَ<span class="hl">ة</span></span><span class="pr">תִלְמִיד׳ַה <i>tilmiidha</i></span><span>תלמידה</span></div></div>
+  <div class="pair"><div class="w"><span class="ar">مُمْتَاز</span><span class="pr">מֻמְתַאז <i>mumtaaz</i></span><span>מצוין</span></div><span class="arrow">←</span><div class="w"><span class="ar">مُمْتَازَ<span class="hl">ة</span></span><span class="pr">מֻמְתַאזַה <i>mumtaaza</i></span><span>מצוינת</span></div></div>
+  <div class="note sun"><b>טיפ:</b> לפני ה־ة תמיד יש פַתְחַה (ـَ), כלומר צליל <i class="en">a</i>. וגם מילים כמו <span class="ar" style="font-size:24px">مَدْرَسَة</span> <span class="pri">(מַדְרַסַה · <i>madrasa</i>)</span> (בית ספר) ו־<span class="ar" style="font-size:24px">دَوْلَة</span> <span class="pri">(דַוְלַה · <i>dawla</i>)</span> (מדינה) הן בנקבה. בעברית "מדינה" היא גם נקבה.</div>
+  <div class="note rose"><b>במשפט:</b> תואר צריך להתאים לשם. <span class="ar" style="font-size:24px">دُكَّان كَبِير</span> <span class="pri">(דֻכַּאן כַּבִּיר · <i>dukkaan kabiir</i>)</span> (חנות גדולה – בערבית "חנות" היא זכר) אבל <span class="ar" style="font-size:24px">مَدْرَسَة كَبِيرَة</span> <span class="pri">(מַדְרַסַה כַּבִּירַה · <i>madrasa kabiira</i>)</span> (בית ספר גדול – בערבית נקבה, לכן גם התואר עם ة).</div>
+  <label class="done"><input type="checkbox" data-done="marbuta">הבנתי את תא מרבוטה</label>
+</section>
+
+<section id="vocab">
+  <div class="sec-head"><div class="num">5</div><h2>אוצר המילים לבוחן</h2></div>
+  <p class="lead">בבוחן יהיה טקסט שבנוי מהמילים האלה, ושאלות עליו. לחץ על כרטיס כדי לראות את התרגום. נסה קודם לנחש!</p>
+  <div class="vbar">
+    <span class="kicker" id="vcount"></span>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" id="showAll">הצג הכול</button>
+      <button class="btn ghost" id="hideAll">הסתר הכול</button>
+    </div>
+  </div>
+  <div id="vocabGroups"></div>
+  <div class="note"><b>טיפ קטן: <span class="ar" style="font-size:24px">الْ</span> = ה׳ הידיעה.</b> <span class="ar" style="font-size:24px">يَوْم</span> = יום, ו־<span class="ar" style="font-size:24px">الْيَوْم</span> = היום.</div>
+  <label class="done"><input type="checkbox" data-done="vocab">אני מכיר את כל המילים</label>
+</section>
+
+<section id="exam">
+  <div class="sec-head"><div class="num">✓</div><h2>טיפים לבוחן</h2></div>
+  <ul class="checklist">
+    <li><b>קרא לאט, הברה אחרי הברה.</b> אות + ניקוד = הברה. מחבר הברות = מילה.</li>
+    <li><b>מילה לא מוכרת?</b> נסה לחשוב על מילה דומה בעברית (مَدْرَسَة ← מדרשה).</li>
+    <li><b>רואה ة בסוף?</b> כנראה מילה בלשון נקבה, והיא נגמרת בצליל "אַ".</li>
+    <li><b>רואה ـِي בסוף?</b> כנראה "שלי": اِسْمِي = השם שלי, أُمِّي = אמא שלי.</li>
+    <li><b>בשאלות על הטקסט:</b> קודם תרגם כל משפט לעברית בראש, אחר כך תענה.</li>
+    <li><b>תרגל!</b> <a href="https://claude.ai/artifact/JL2kHHzJLkutGX8UtukdRa" style="color:var(--teal);font-weight:700">לדף התרגילים ←</a> עם תשובות מיידיות.</li>
+  </ul>
+</section>
+</main>
+<footer class="wrap">בהצלחה בבוחן! <span class="ar" style="font-size:22px">بِالتَّوْفِيق</span></footer>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const ZWJ='‍';
+const SPEAK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+// [letter, hebrew name, sound, tip, arabic name, connects-left]
+const FAMS=[
+ ["אלף – נושאת תנועה",[["ا","אַלִף","א / aa","בתוך מילה: א׳ ארוכה","أَلِف",0]]],
+ ["אותה צורה – רק הנקודות משתנות",[["ب","בַּא","ב","נקודה אחת מתחת","بَاء",1],["ت","תַּא","ת","שתי נקודות למעלה","تَاء",1],["ث","ת׳א","ת׳","שלוש נקודות. th כמו think","ثَاء",1]]],
+ ["אותה צורה – רק הנקודות משתנות",[["ج","גִ׳ים","ג׳","נקודה בבטן. כמו ג׳ירפה","جِيم",1],["ح","חַא","ח","בלי נקודה. ח׳ עמוקה מהגרון","حَاء",1],["خ","ח׳א","ח׳","נקודה מעל. כמו ח׳ רגילה שלנו","خَاء",1]]],
+ ["אותה צורה – לא מתחברות שמאלה",[["د","דַאל","ד","קטנה ופשוטה","دَال",0],["ذ","ד׳אל","ד׳","נקודה מעל. th כמו this","ذَال",0]]],
+ ["אותה צורה – לא מתחברות שמאלה",[["ر","רַא","ר","ר׳ מתגלגלת","رَاء",0],["ز","זַאי","ז","נקודה מעל","زَاي",0]]],
+ ["אותה צורה – שלוש שיניים",[["س","סִין","ס","שלוש שיניים","سِين",1],["ش","שִׁין","ש","שיניים + 3 נקודות, כמו ש׳","شِين",1]]],
+ ["אותה צורה – אותיות \"עבות\"",[["ص","צַאד","צ","ס׳ עבה וחזקה","صَاد",1],["ض","צ׳אד","צ׳","ד׳ עבה, נקודה מעל","ضَاد",1]]],
+ ["אותה צורה – אותיות \"עבות\"",[["ط","טַא","ט","ת׳ עבה","طَاء",1],["ظ","ט׳א","ט׳","נקודה מעל","ظَاء",1]]],
+ ["אותה צורה – אותיות גרוניות",[["ع","עֵין","ע","ע׳ עמוקה מהגרון","عَيْن",1],["غ","ע׳ין","ע׳","נקודה מעל. כמו ר׳ צרפתית","غَيْن",1]]],
+ ["דומות – שימו לב לנקודות",[["ف","פַא","פ","נקודה אחת מעל. תמיד F","فَاء",1],["ق","קַאף","ק","שתי נקודות. ק׳ מהגרון","قَاف",1]]],
+ ["שאר האותיות",[["ك","כַּאף","כּ","תמיד K","كَاف",1],["ل","לַאם","ל","גבוהה, כמו ל׳","لَام",1],["م","מִים","מ","עיגול קטן","مِيم",1],["ن","נוּן","נ","נקודה מעל","نُون",1],["ه","הַא","ה","","هَاء",1],["و","וַאו","ו / uu","לא מתחברת שמאלה","وَاو",0],["ي","יַא","י / ii","שתי נקודות מתחת","يَاء",1]]],
+];
+
+let arVoice=null;
+function findVoice(){try{const v=speechSynthesis.getVoices();arVoice=v.find(x=>/^ar/i.test(x.lang))||null;}catch(e){}}
+if('speechSynthesis' in window){findVoice();speechSynthesis.onvoiceschanged=findVoice;}
+const toastEl=document.getElementById('toast');let tt;
+function toast(m){toastEl.textContent=m;toastEl.hidden=false;clearTimeout(tt);tt=setTimeout(()=>toastEl.hidden=true,2200);}
+function speak(t){
+  if(!('speechSynthesis' in window)||!arVoice){toast('אין במכשיר הזה קול בערבית, אז אין השמעה');return;}
+  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=arVoice.lang;u.voice=arVoice;u.rate=.75;speechSynthesis.speak(u);
+}
+
+// letters
+const lf=document.getElementById('letterFams');
+FAMS.forEach(([label,ls])=>{
+  const f=document.createElement('div');f.className='fam';
+  f.innerHTML=`<div class="fam-label">${label}</div>`;
+  const g=document.createElement('div');g.className='letters';
+  ls.forEach(([l,he,snd,tip,arName,conn])=>{
+    const start=conn?l+ZWJ:l, mid=conn?ZWJ+l+ZWJ:ZWJ+l, end=ZWJ+l;
+    const c=document.createElement('div');c.className='lt'+(conn?'':' nc');c.tabIndex=0;c.setAttribute('role','button');
+    c.setAttribute('aria-label',`${he}, נשמעת ${snd}`);
+    c.innerHTML=`<button class="say" tabindex="-1" aria-hidden="true">${SPEAK}</button>
+      <div class="glyph ar">${l}</div><div class="name">${he}</div><div class="snd">${snd}</div>
+      ${tip?`<div class="tip">${tip}</div>`:''}
+      <div class="forms"><div><span class="ar">${start}</span>התחלה</div><div><span class="ar">${mid}</span>אמצע</div><div><span class="ar">${end}</span>סוף</div></div>`;
+    const go=()=>speak(arName);
+    c.addEventListener('click',go);c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});
+    g.appendChild(c);
+  });
+  f.appendChild(g);lf.appendChild(f);
+});
+
+// vowel lab
+const LAB=[["ب","ב","b"],["ت","ת","t"],["د","ד","d"],["ر","ר","r"],["س","ס","s"],["م","מ","m"],["ك","כ","k"],["ل","ל","l"],["ن","נ","n"],["ف","פ","f"]];
+const pick=document.getElementById('labPick'),out=document.getElementById('labOut');
+function renderLab(i){
+  [...pick.children].forEach((b,j)=>b.setAttribute('aria-pressed',j===i));
+  const [a,h,L]=LAB[i];const dag=(h==='ב'||h==='כ'||h==='פ')?'ּ':'';
+  const items=[[a+'َ',h+dag+'ַ',L+'a'],[a+'ِ',h+dag+'ִ',L+'i'],[a+'ُ',h+dag+'ֻ',L+'u'],[a+'ْ',h+dag+'ְ',L]];
+  out.innerHTML='';
+  items.forEach(([ar,he,en])=>{const b=document.createElement('button');b.innerHTML=`<span class="ar">${ar}</span><span>${he} <i class="en">${en}</i></span>`;b.onclick=()=>speak(ar);out.appendChild(b);});
+}
+LAB.forEach(([a],i)=>{const b=document.createElement('button');b.textContent=a;b.setAttribute('aria-label','אות '+LAB[i][1]);b.onclick=()=>renderLab(i);pick.appendChild(b);});
+renderLab(0);
+
+// breakdowns
+const BD=[
+ [["يُو","יוּ","yuu"],["سُف","סֻף","suf"]],"يُوسُف","יוּסֻף <i class=\"en\">yuusuf</i> (יוסף)",
+ [["مَدْ","מַדְ","mad"],["رَ","רַ","ra"],["سَة","סַה","sa"]],"مَدْرَسَة","מַדְרַסַה <i class=\"en\">madrasa</i> (בית ספר)",
+ [["تِلْ","תִלְ","til"],["مِي","מִי","mii"],["ذ","ד׳","dh"]],"تِلْمِيذ","תִלְמִיד׳ <i class=\"en\">tilmiidh</i> (תלמיד)",
+];
+const bdw=document.getElementById('breakdowns');
+for(let i=0;i<BD.length;i+=3){
+  const d=document.createElement('div');d.className='breakdown';
+  d.innerHTML=BD[i].map(([a,h,e])=>`<div class="syl"><span class="ar">${a}</span><span>${h} <i class="en">${e}</i></span></div>`).join('<span class="eq">+</span>')+
+   `<span class="eq">=</span><div class="whole"><span class="ar">${BD[i+1]}</span><span>${BD[i+2]}</span></div>`;
+  d.querySelector('.whole').style.cursor='pointer';d.querySelector('.whole').onclick=()=>speak(BD[i+1]);
+  bdw.appendChild(d);
+}
+
+// vocab
+const VOC=[
+ ["אנשים ושמות",[["أَنَا","אַנַא","אני"],["اِسْمِي","אִסְמִי","שמי / השם שלי"],["أُمِّي","אֻמִּי","אמא שלי"],["أَبِي","אַבִּי","אבא שלי"],["وَلَد","וַלַד","בן / ילד"],["بِنْت","בִּנְת","בת / ילדה"],["تِلْمِيذ","תִלְמִיד׳","תלמיד"],["تِلْمِيذَة","תִלְמִיד׳ַה","תלמידה"],["مُسْلِم","מֻסְלִם","מוסלמי"],["يُوسُف","יוּסֻף","יוסף"],["زَيْد","זַיְד","זאיד"],["أَمِير","אַמִיר","אמיר"],["وَدَاد","וַדַאד","ודאד (שם)"],["مَرْيَم","מַרְיַם","מרים"]]],
+ ["מקומות",[["دَوْلَة","דַוְלַה","מדינה"],["مَدْرَسَة","מַדְרַסַה","בית ספר"],["دُكَّان","דֻכַּאן","חנות"],["إِسْرَائِيل","אִסְרַאאִיל","ישראל"],["لُبْنَان","לֻבְּנַאן","לבנון"],["يَافَا","יַאפַא","יפו"],["بَارِيس","בַּארִיס","פריז"],["تُلْ أَبِيب","תֻל אַבִּיב","תל אביב"],["رَمْلَة","רַמְלַה","רמלה"]]],
+ ["מילים קטנות (מילות יחס)",[["وَ","וַ","ו־ (וגם)"],["فِي","פִי","ב־ (בתוך)"],["مِنْ","מִן","מ־ (מן)"],["إِلَى","אִלַא","אל / ל־"],["لِي","לִי","לי / יש לי"]]],
+ ["תארים (איך משהו)",[["كَبِير","כַּבִּיר","גדול"],["كَبِيرَة","כַּבִּירַה","גדולה"],["مُمْتَاز","מֻמְתַאז","מצוין"]]],
+ ["פעלים וזמן",[["سَافَر","סַאפַר","נסע"],["يَدْرُس","יַדְרֻס","לומד"],["الْيَوْم","אַלְיַוְם","היום"]]],
+];
+const vg=document.getElementById('vocabGroups');let total=0;
+VOC.forEach(([t,ws])=>{
+  const g=document.createElement('div');g.className='vgroup';g.innerHTML=`<h3>${t}</h3>`;
+  const c=document.createElement('div');c.className='cards';
+  ws.forEach(([a,tr,he])=>{total++;
+    const b=document.createElement('button');b.className='card';
+    b.innerHTML=`<span class="ar">${a}</span><span class="tr">${tr}</span><span class="he">${he}</span><span class="hint">לחץ לתרגום</span>`;
+    b.onclick=()=>{b.classList.toggle('open');if(b.classList.contains('open'))speakQuiet(a);};
+    c.appendChild(b);});
+  g.appendChild(c);vg.appendChild(g);
+});
+function speakQuiet(a){if(arVoice)speak(a);}
+document.getElementById('vcount').textContent=total+' מילים';
+document.getElementById('showAll').onclick=()=>document.querySelectorAll('.card').forEach(c=>c.classList.add('open'));
+document.getElementById('hideAll').onclick=()=>document.querySelectorAll('.card').forEach(c=>c.classList.remove('open'));
+
+// "I understood" checkboxes (per-viewer convenience)
+document.querySelectorAll('[data-done]').forEach(cb=>{
+  const k='arabic-done-'+cb.dataset.done;
+  try{cb.checked=localStorage.getItem(k)==='1';}catch(e){}
+  cb.onchange=()=>{try{localStorage.setItem(k,cb.checked?'1':'0');}catch(e){}};
+});
+</script>

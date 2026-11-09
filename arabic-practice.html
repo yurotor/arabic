@@ -1,0 +1,247 @@
+<title>תרגילי ערבית</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&family=Rubik:wght@400;500;700&family=Secular+One&display=swap">
+<style>
+/* Layout: one column of question cards grouped into eight short rounds, with a sticky score bar */
+:root{
+  --bg:#F3F7F6; --surface:#FFFFFF; --ink:#14313A; --muted:#55707A; --line:#D3E2DF;
+  --teal:#0E7673; --teal-soft:#DFF0EE; --sun:#E89A1C; --sun-soft:#FCEFD6; --rose:#D04560; --rose-soft:#FBE3E8;
+  --good:#1E8A4C; --good-soft:#DDF3E5;
+  --f-display:"Secular One","Rubik",system-ui,sans-serif;
+  --f-body:"Rubik",system-ui,"Segoe UI",Arial,sans-serif;
+  --f-ar:"Noto Naskh Arabic","Geeza Pro","Traditional Arabic","Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0D1C21; --surface:#14282E; --ink:#E5F0EE; --muted:#93AEB4; --line:#24414A;
+  --teal:#43C3B8; --teal-soft:#123836; --sun:#F4B74E; --sun-soft:#3A2D14; --rose:#F07890; --rose-soft:#3D1D25;
+  --good:#5DD08F; --good-soft:#15362A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D1C21; --surface:#14282E; --ink:#E5F0EE; --muted:#93AEB4; --line:#24414A;
+  --teal:#43C3B8; --teal-soft:#123836; --sun:#F4B74E; --sun-soft:#3A2D14; --rose:#F07890; --rose-soft:#3D1D25;
+  --good:#5DD08F; --good-soft:#15362A; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;direction:rtl}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ar{font-family:var(--f-ar);direction:rtl;unicode-bidi:isolate;line-height:1.9}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;line-height:1.2;text-wrap:balance;margin:0}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px;border-radius:8px}
+
+header{padding-block:32px 16px}
+.kicker{font-size:13px;letter-spacing:.06em;color:var(--muted);font-weight:500}
+h1{font-size:clamp(38px,8vw,60px)}
+.sub{color:var(--muted);margin-top:6px}
+
+.score{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.score .wrap{display:flex;align-items:center;gap:14px;padding-block:10px}
+.bar{flex:1;height:12px;background:var(--line);border-radius:999px;overflow:hidden;display:flex}
+.bar i{display:block;height:100%;background:var(--good);transition:width .3s}
+.bar i.bad{background:var(--rose)}
+.score b{font-family:var(--f-display);font-weight:400;font-size:20px;color:var(--good);white-space:nowrap;font-variant-numeric:tabular-nums}
+.score .sm{font-size:14px;color:var(--muted);white-space:nowrap}
+
+section{padding-block:28px 6px}
+.sec-head{display:flex;gap:12px;align-items:center;margin-bottom:6px}
+.tag{flex:none;background:var(--teal);color:var(--surface);font-family:var(--f-display);border-radius:12px;padding:2px 12px;font-size:20px}
+.sec-head h2{font-size:clamp(24px,4.5vw,30px)}
+.how{color:var(--muted);margin-bottom:12px;font-size:16px}
+.text{background:var(--sun-soft);border-radius:18px;padding:14px 20px;margin-bottom:14px}
+.text .ar{font-size:30px;line-height:2.1}
+.text details{margin-top:6px;font-size:15px;color:var(--muted)}
+.text summary{cursor:pointer;color:var(--ink);font-weight:500}
+
+.qs{display:grid;gap:12px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 16px}
+.q .prompt{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.q .n{color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
+.q .prompt .t{font-weight:500}
+.q .show{font-size:56px;text-align:center;line-height:1.6;color:var(--teal)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:10px}
+.opt{border:2px solid var(--line);background:var(--bg);border-radius:14px;padding:8px 10px;cursor:pointer;min-height:52px;text-align:center;font-size:18px;transition:transform .1s}
+.opt:hover:not(:disabled){border-color:var(--teal);transform:translateY(-1px)}
+.opt.ar{font-size:28px;line-height:1.5}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--good);background:var(--good-soft);color:var(--ink)}
+.opt.wrong{border-color:var(--rose);background:var(--rose-soft);color:var(--ink)}
+.fb{margin-top:10px;font-size:15.5px;border-radius:12px;padding:8px 12px}
+.fb.ok{background:var(--good-soft)} .fb.no{background:var(--rose-soft)}
+.fb b{font-weight:700}
+.fb .ar{font-size:22px}
+.sec-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:12px}
+.sec-res{font-weight:500;color:var(--muted)}
+.btn{border:1px solid var(--teal);background:transparent;color:var(--teal);border-radius:999px;padding:6px 16px;cursor:pointer;font-weight:500;font-size:15px}
+.btn.solid{background:var(--teal);color:var(--surface)}
+.final{margin-block:30px 50px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;text-align:center}
+.final h2{font-size:30px}
+.final p{color:var(--muted);margin-block:6px 14px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="wrap">
+  <div class="kicker">דף תרגילים · לבוחן ביום חמישי 12.11</div>
+  <h1>תרגילי ערבית</h1>
+  <p class="sub">שמונה סבבים קצרים, מהקל אל הקשה. לוחצים על תשובה ומיד רואים אם צדקת ולמה. אפשר לחזור על כל סבב כמה שרוצים.</p>
+</header>
+
+<div class="score" aria-live="polite">
+  <div class="wrap">
+    <div class="bar" aria-hidden="true"><i id="barGood" style="width:0"></i><i id="barBad" class="bad" style="width:0"></i></div>
+    <b id="scoreNum">0</b><span class="sm" id="scoreOf">נכונות מתוך 0</span>
+  </div>
+</div>
+
+<main class="wrap" id="app"></main>
+
+<div class="wrap"><div class="final">
+  <h2>סיימת הכול?</h2>
+  <p id="finalMsg">ענה על כל השאלות ותראה כאן את הציון שלך.</p>
+  <button class="btn solid" id="resetAll">התחל הכול מחדש</button>
+</div></div>
+
+<script>
+const A=s=>`<span class="ar">${s}</span>`;
+// q: prompt text, show: big arabic (optional), o: options (first = correct), ar: options are arabic, ex: explanation
+const ROUNDS=[
+ {t:"מי האות?",how:"מסתכלים על האות הגדולה ובוחרים איזו אות היא בעברית.",qs:[
+  {q:"איזו אות זו?",show:"ب",o:["ב","ת","נ","י"],ex:"ب = ב. נקודה אחת מתחת."},
+  {q:"איזו אות זו?",show:"ت",o:["ת","ב","ת׳","ן"],ex:"ت = ת. שתי נקודות למעלה."},
+  {q:"איזו אות זו?",show:"ن",o:["נ","ב","ת","י"],ex:"ن = נ. נקודה אחת מעל, צורה של קערה."},
+  {q:"איזו אות זו?",show:"ش",o:["ש","ס","צ","ת׳"],ex:"ش = ש. שלוש שיניים ועוד שלוש נקודות."},
+  {q:"איזו אות זו?",show:"م",o:["מ","ו","ה","ע"],ex:"م = מ. עיגול קטן עם זנב."},
+  {q:"איזו אות זו?",show:"ع",o:["ע","ע׳","ח","ג׳"],ex:"ع = ע. בלי נקודה. עם נקודה (غ) זו ע׳."},
+  {q:"איזו אות זו?",show:"ك",o:["כ","ל","ק","פ"],ex:"ك = כ (תמיד K)."},
+  {q:"איזו אות זו?",show:"ق",o:["ק","פ","כ","ו"],ex:"ق = ק. שתי נקודות. ל־ف (פ) יש רק נקודה אחת."},
+  {q:"איזו אות זו?",show:"ر",o:["ר","ז","ד","ו"],ex:"ر = ר. עם נקודה (ز) זו ז."},
+  {q:"איזו אות זו?",show:"ح",o:["ח","ח׳","ג׳","ה"],ex:"ح = ח. בלי נקודה. עם נקודה למעלה (خ) זו ח׳, ועם נקודה בבטן (ج) זו ג׳."},
+  {q:"איזו מהאותיות האלה לא מתחברת לאות שאחריה?",o:["د","ب","س","م"],ar:1,ex:`יש רק 6 אותיות כאלה: ${A("ا د ذ ر ز و")}.`},
+ ]},
+ {t:"חבר את האותיות",how:"מחברים אותיות נפרדות למילה אחת. בוחרים איך היא נראית מחוברת.",qs:[
+  {q:"ي + و + س + ف =",o:["يوسف","بوسف","يوسق"],ar:1,ex:"يوسف = יוסף. ב־بوسف האות הראשונה היא ב׳, ב־يوسق האחרונה היא ק׳."},
+  {q:"ب + ن + ت =",o:["بنت","نبت","بيت"],ar:1,ex:"بنت = בִּנְת (בת). קוראים מימין לשמאל: ב, נ, ת."},
+  {q:"م + ر + ي + م =",o:["مريم","مرين","مزيم"],ar:1,ex:"مريم = מרים. ב־مزيم יש ז׳ במקום ר׳."},
+  {q:"د + و + ل + ة =",o:["دولة","ذولة","دولت"],ar:1,ex:"دولة = מדינה. ה־ة בסוף מחוברת ל־ل."},
+ ]},
+ {t:"ניקוד",how:"פַתְחַה = a, כַּסְרַה = i, צַ׳מַּה = u, סֻכּוּן = בלי תנועה.",qs:[
+  {q:"איך קוראים?",show:"بَ",o:["בַּ","בִּ","בֻּ","בְּ"],ex:"קו מעל = פַתְחַה = a."},
+  {q:"איך קוראים?",show:"سِ",o:["סִ","סַ","סֻ","סְ"],ex:"קו מתחת = כַּסְרַה = i."},
+  {q:"איך קוראים?",show:"مُ",o:["מֻ","מַ","מִ","מְ"],ex:"ו׳ קטנה מעל = צַ׳מַּה = u."},
+  {q:"איך קוראים?",show:"دْ",o:["דְ (בלי תנועה)","דַ","דִ","דֻ"],ex:"עיגול קטן = סֻכּוּן = אין תנועה."},
+  {q:"איך נקרא הסימן שמתחת לאות?",show:"ـِ",o:["כַּסְרַה","פַתְחַה","צַ׳מַּה","סֻכּוּן"],ex:"קו מתחת לאות = כַּסְרַה (i)."},
+  {q:"איך קוראים את המילה?",show:"يَافَا",o:["יַאפַא","יוּפוּ","יִיפִי"],ex:"פַתְחַה + ا = a ארוכה. יַאפַא = יפו."},
+  {q:"איך קוראים את המילה?",show:"كَبِير",o:["כַּבִּיר","כֻּבּוּר","כִּבַּאר"],ex:"كَ = כַּ, بِي = בִּי (ארוך), ر = ר."},
+  {q:"מה עושה השַׁדַּה (ـّ) במילה أُمِّي?",o:["מכפילה את האות: אֻמְ־מִי","הופכת את המילה לנקבה","אומרת שאין תנועה"],ex:"שַׁדַּה = האות כפולה, כמו דגש חזק."},
+ ]},
+ {t:"תא מרבוטה (ة)",how:"ة בסוף מילה = צליל אַ, ובדרך כלל אומרת שהמילה בנקבה.",qs:[
+  {q:"איך הוגים את ה־ة בסוף מילה?",o:["אַ","ת","אִי","אוּ"],ex:"ة בסוף מילה נשמעת כמו אַ. למשל مَدْرَسَة = מַדְרַסַה."},
+  {q:"איזו מילה בלשון נקבה?",o:["تِلْمِيذَة","تِلْمِيذ","وَلَد","دُكَّان"],ar:1,ex:"تِلْمِيذَة = תלמידה. ה־ة בסוף מסמנת נקבה."},
+  {q:"גדול ← גדולה. איך כותבים \"גדולה\"?",o:["كَبِيرَة","كَبِير","كَبِيرِي"],ar:1,ex:"מוסיפים ة: كَبِير ← كَبِيرَة."},
+  {q:"מצוין ← מצוינת. איך כותבים \"מצוינת\"?",o:["مُمْتَازَة","مُمْتَاز","مُمْتَازِي"],ar:1,ex:"מוסיפים ة: مُمْتَاز ← مُمْتَازَة."},
+  {q:"השלם: مَدْرَسَة ____ (בית ספר גדול)",o:["كَبِيرَة","كَبِير"],ar:1,ex:"مَدْرَسَة נגמרת ב־ة (נקבה), לכן גם התואר בנקבה: كَبِيرَة."},
+  {q:"איפה במילה יכולה להופיע ة?",o:["רק בסוף","רק בהתחלה","בכל מקום"],ex:"ة מופיעה רק בסוף מילה."},
+ ]},
+ {t:"\"שלי\"",how:"מילה רגילה: מוסיפים ـِي. מילה עם ة: ה־ة הופכת ל־ت ואז ـِي.",qs:[
+  {q:"اِسْم (שם) ← השם שלי:",o:["اِسْمِي","اِسْمَة","اِسْمَتِي"],ar:1,ex:"מילה רגילה, מוסיפים ـِي: اِسْمِي."},
+  {q:"دُكَّان (חנות) ← החנות שלי:",o:["دُكَّانِي","دُكَّانَة","دُكَّانَتِي"],ar:1,ex:"מילה רגילה, מוסיפים ـِي: دُكَّانِي."},
+  {q:"مَدْرَسَة (בית ספר) ← בית הספר שלי:",o:["مَدْرَسَتِي","مَدْرَسَةِي","مَدْرَسَي"],ar:1,ex:"סוג 2: ה־ة הופכת ל־ت ואז ـِي: مَدْرَسَتِي."},
+  {q:"دَوْلَة (מדינה) ← המדינה שלי:",o:["دَوْلَتِي","دَوْلَةِي","دَوْلِي"],ar:1,ex:"ة ← ت, ואז ـِي: دَوْلَتِي. כמו בעברית: מדינה ← מדינתי."},
+  {q:"מה פירוש أُمِّي?",o:["אמא שלי","אמא","אבא שלי","אני"],ex:"أُمّ = אמא, ועם ـِي: אמא שלי."},
+  {q:"מה קורה ל־ة כשמוסיפים \"שלי\"?",o:["היא הופכת ל־ت","היא נעלמת","היא נשארת ة","היא הופכת ל־ي"],ex:"ة הופכת ל־ت, ואחריה ـِي."},
+ ]},
+ {t:"אוצר מילים",how:"מה פירוש המילה?",qs:[
+  {q:"מה פירוש המילה?",show:"دَوْلَة",o:["מדינה","חנות","בית ספר","עיר"]},
+  {q:"מה פירוש המילה?",show:"دُكَّان",o:["חנות","מדינה","ילד","גדול"]},
+  {q:"מה פירוש המילה?",show:"يَدْرُس",o:["לומד","נסע","מצוין","היום"]},
+  {q:"מה פירוש המילה?",show:"سَافَر",o:["נסע","לומד","גדול","אל"]},
+  {q:"מה פירוש המילה?",show:"الْيَوْم",o:["היום","יום","שמי","יפו"],ex:"الْ = ה׳ הידיעה. يَوْم = יום."},
+  {q:"מה פירוש המילה?",show:"بِنْت",o:["בת / ילדה","בן / ילד","תלמידה","אמא שלי"]},
+  {q:"מה פירוש המילה?",show:"وَلَد",o:["בן / ילד","בת / ילדה","אבא שלי","תלמיד"]},
+  {q:"מה פירוש המילה?",show:"فِي",o:["ב־","מ־","אל","ו־"]},
+  {q:"מה פירוש המילה?",show:"مِنْ",o:["מ־","ב־","לי","אני"]},
+  {q:"מה פירוש המילה?",show:"إِلَى",o:["אל / ל־","מ־","ב־","היום"]},
+  {q:"מה פירוש המילה?",show:"مُمْتَاز",o:["מצוין","מוסלמי","גדול","תלמיד"]},
+  {q:"מה פירוש המילה?",show:"لُبْنَان",o:["לבנון","ישראל","פריז","רמלה"]},
+ ]},
+ {t:"קריאת טקסט",how:"כמו בבוחן: קוראים את הטקסט ועונים על השאלות. אם נתקעת, אפשר לפתוח את התרגום.",
+  text:"اِسْمِي يُوسُف. أَنَا مُسْلِم مِنْ دَوْلَة إِسْرَائِيل. لِي دُكَّان كَبِير فِي يَافَا. أُمِّي مَرْيَم وَأَبِي أَمِير.",
+  tr:"שמי יוסף. אני מוסלמי ממדינת ישראל. יש לי חנות גדולה ביפו. אמא שלי מרים ואבא שלי אמיר.",
+  qs:[
+  {q:"מה שם הדובר?",o:["יוסף","אמיר","זאיד","מרים"],ex:`${A("اِسْمِي يُوسُف")} = שמי יוסף.`},
+  {q:"מאיזו מדינה הוא?",o:["ישראל","לבנון","פריז","יפו"],ex:`${A("مِنْ دَوْلَة إِسْرَائِيل")} = ממדינת ישראל.`},
+  {q:"מה יש לו?",o:["חנות גדולה","בית ספר גדול","חנות קטנה","מדינה"],ex:`${A("لِي دُكَّان كَبِير")} = יש לי חנות גדולה.`},
+  {q:"איפה נמצאת החנות?",o:["ביפו","בתל אביב","ברמלה","בפריז"],ex:`${A("فِي يَافَا")} = ביפו.`},
+  {q:"מי זה אמיר?",o:["אבא של יוסף","אח של יוסף","תלמיד","החבר של יוסף"],ex:`${A("أَبِي أَمِير")} = אבא שלי אמיר.`},
+ ]},
+ {t:"קריאת טקסט 2",how:"טקסט שני, קצת יותר ארוך.",
+  text:"زَيْد وَلَد مِنْ لُبْنَان. الْيَوْم زَيْد سَافَر إِلَى بَارِيس. وَدَاد بِنْت مِنْ رَمْلَة. وَدَاد تِلْمِيذَة مُمْتَازَة فِي مَدْرَسَة كَبِيرَة.",
+  tr:"זאיד הוא ילד מלבנון. היום זאיד נסע לפריז. ודאד היא ילדה מרמלה. ודאד תלמידה מצוינת בבית ספר גדול.",
+  qs:[
+  {q:"מאיפה זאיד?",o:["מלבנון","מישראל","מפריז","מרמלה"],ex:`${A("مِنْ لُبْنَان")} = מלבנון.`},
+  {q:"לאן נסע זאיד?",o:["לפריז","ליפו","לתל אביב","ללבנון"],ex:`${A("سَافَر إِلَى بَارِيس")} = נסע לפריז.`},
+  {q:"מתי הוא נסע?",o:["היום","אתמול","מחר","לא כתוב"],ex:`${A("الْيَوْم")} = היום.`},
+  {q:"מי זו ודאד?",o:["ילדה מרמלה","ילדה מלבנון","אמא של זאיד","מורה"],ex:`${A("وَدَاد بِنْت مِنْ رَمْلَة")} = ודאד ילדה מרמלה.`},
+  {q:"איזו מילה בטקסט אומרת שודאד \"מצוינת\"?",o:["مُمْتَازَة","كَبِيرَة","تِلْمِيذَة","بِنْت"],ar:1,ex:"مُمْتَاز + ة = מצוינת (נקבה, כי ודאד היא בת)."},
+  {q:"למה כתוב مَدْرَسَة كَبِيرَة ולא مَدْرَسَة كَبِير?",o:["כי مَدْرَسَة בנקבה, אז גם התואר בנקבה","כי זה רבים","כי זו טעות","כי זה \"שלי\""],ex:"مَدْرَسَة נגמרת ב־ة, אז התואר מתאים לה ומקבל ة."},
+ ]},
+];
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const app=document.getElementById('app');
+const state=[];// per round: array of null|true|false
+const totalQ=ROUNDS.reduce((s,r)=>s+r.qs.length,0);
+
+function renderRound(ri){
+  const r=ROUNDS[ri];state[ri]=r.qs.map(()=>null);
+  let sec=document.getElementById('r'+ri);
+  if(!sec){sec=document.createElement('section');sec.id='r'+ri;app.appendChild(sec);}
+  sec.innerHTML=`<div class="sec-head"><span class="tag">${ri+1}</span><h2>${r.t}</h2></div><p class="how">${r.how}</p>`+
+    (r.text?`<div class="text"><div class="ar">${r.text}</div><details><summary>הצג תרגום</summary>${r.tr}</details></div>`:'');
+  const qs=document.createElement('div');qs.className='qs';
+  r.qs.forEach((q,qi)=>{
+    const d=document.createElement('div');d.className='q';
+    d.innerHTML=`<div class="prompt"><span class="n">${qi+1}.</span><span class="t">${q.q}</span></div>`+(q.show?`<div class="show ar">${q.show}</div>`:'');
+    const os=document.createElement('div');os.className='opts';
+    shuffle(q.o.map((t,i)=>({t,ok:i===0}))).forEach(op=>{
+      const b=document.createElement('button');b.className='opt'+(q.ar?' ar':'');b.textContent=op.t;
+      b.onclick=()=>{
+        if(state[ri][qi]!==null)return;
+        state[ri][qi]=op.ok;
+        os.querySelectorAll('.opt').forEach(x=>{x.disabled=true;});
+        b.classList.add(op.ok?'right':'wrong');
+        if(!op.ok){[...os.children].find(x=>x.textContent===q.o[0]).classList.add('right');}
+        const fb=document.createElement('div');fb.className='fb '+(op.ok?'ok':'no');
+        const praise=['כל הכבוד!','מעולה!','נכון!','יפה מאוד!','בדיוק!'];
+        fb.innerHTML=(op.ok?`<b>${praise[Math.floor(Math.random()*praise.length)]}</b> `:`<b>לא נורא.</b> התשובה הנכונה: <b>${q.ar?A(q.o[0]):q.o[0]}</b>. `)+(q.ex||(q.show?`${A(q.show)} = ${q.o[0]}`:''));
+        d.appendChild(fb);update();
+      };
+      os.appendChild(b);
+    });
+    d.appendChild(os);qs.appendChild(d);
+  });
+  sec.appendChild(qs);
+  const foot=document.createElement('div');foot.className='sec-foot';
+  foot.innerHTML=`<span class="sec-res" id="res${ri}"></span><button class="btn">עשה את הסבב שוב</button>`;
+  foot.querySelector('button').onclick=()=>{renderRound(ri);update();};
+  sec.appendChild(foot);
+}
+function update(){
+  let good=0,bad=0;
+  state.forEach((rs,ri)=>{const g=rs.filter(x=>x===true).length,b=rs.filter(x=>x===false).length;good+=g;bad+=b;
+    const el=document.getElementById('res'+ri);
+    el.textContent=(g+b===rs.length)?`סיימת את הסבב: ${g} מתוך ${rs.length} ${g===rs.length?'– מושלם!':''}`:`${g+b} מתוך ${rs.length} נענו`;
+  });
+  document.getElementById('barGood').style.width=(good/totalQ*100)+'%';
+  document.getElementById('barBad').style.width=(bad/totalQ*100)+'%';
+  document.getElementById('scoreNum').textContent=good;
+  document.getElementById('scoreOf').textContent=`נכונות מתוך ${totalQ}`;
+  const fm=document.getElementById('finalMsg');
+  if(good+bad===totalQ){const p=Math.round(good/totalQ*100);
+    fm.textContent=`ציון: ${p}. `+(p>=90?'אתה מוכן לבוחן!':p>=70?'יפה מאוד! תחזור על הסבבים שבהם טעית.':'התחלה טובה. תעבור שוב על דף ההסברים ותנסה עוד פעם.');}
+  else fm.textContent=`ענית על ${good+bad} מתוך ${totalQ} שאלות.`;
+}
+ROUNDS.forEach((_,i)=>renderRound(i));update();
+document.getElementById('resetAll').onclick=()=>{ROUNDS.forEach((_,i)=>renderRound(i));update();window.scrollTo({top:0,behavior:'smooth'});};
+</script>
